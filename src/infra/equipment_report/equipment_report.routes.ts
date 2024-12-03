@@ -85,31 +85,7 @@ export const equipmentReportRoutes = (fastify: FastifyInstance, options: any, do
   fastify.post('/reports/csv',{
     schema: {
       tags: ['Reports'],
-      description: 'Upload reports via CSV file',
-      consumes: ['multipart/form-data'],
-      body: {
-        type: 'object',
-        properties: {
-          file: { 
-            type: 'object',
-            properties: {
-              filename: { type: 'string' },
-              mimetype: { type: 'string' }
-            }
-          }
-        }
-      },
-      response: {
-        201: {
-          type: 'array',
-          items: {
-            type: 'object',
-            properties: {
-              id: { type: 'string' }
-            }
-          }
-        }
-      }
+      description: 'Upload reports via CSV file'
     }
   }, async function handler (request:FastifyRequest, reply:FastifyReply) {
     const equipmentRepository = new EquipmentPrismaRepository()
