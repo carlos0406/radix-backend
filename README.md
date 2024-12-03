@@ -128,3 +128,10 @@ export interface IRepository<E extends Entity> {
 - Docker
 - Fastfy (http framework)
 - Primsa (ORM)
+
+## Future Improvements
+- Advanced filtering capabilities
+- Pagination on equipments-list
+- User authentication and authorization
+- E2E tests and more integration and unit tests
+- Database Cache
