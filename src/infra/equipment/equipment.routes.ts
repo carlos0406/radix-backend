@@ -19,6 +19,7 @@ export const equipmentRoutes = (fastify: FastifyInstance, options: any, done: ()
                 properties: {
                   id: { type: 'string' },
                   description: { type: 'string' },
+                  created_at: { type: 'string' },
                 }
               }
             }
