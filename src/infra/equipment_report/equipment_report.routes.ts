@@ -10,23 +10,108 @@ import { GenerateEquipmentReport } from '../../core/equipment_report/application
 
 export const equipmentReportRoutes = (fastify: FastifyInstance, options: any, done: () => void) => {
 
-  fastify.get('/reports', async function handler (request:FastifyRequest, reply:FastifyReply) {
+  fastify.get('/reports',{
+    schema: {
+      tags: ['Reports'],
+      description: 'Generate reports for a specific equipment',
+      querystring: {
+        type: 'object',
+        required: ['equipment_id', 'hours'],
+        properties: {
+          equipment_id: { type: 'string' },
+          hours: { type: 'number' }
+        }
+      },
+      response: {
+        200: {
+          type: 'object',
+          properties: {
+            reports: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  id: { type: 'string' },
+                  value: { type: 'number' },
+                  timestamp: { type: 'string' },
+                  equipment_id: { type: 'string' }
+                }
+              }
+            },
+            medium_value: { type: 'number' }
+          }
+        }
+      }
+    }
+  }, async function handler (request:FastifyRequest, reply:FastifyReply) {
     const input = GenerateReportSchema.parse(request.query)
     const equipmentReportRepository = new EquipmentReportPrismaRepository()
     const useCase = new GenerateEquipmentReport(equipmentReportRepository);
     const reports = await useCase.execute(input)
-    const medium_value = reports.reduce((acc, report) => acc +report.value,0)/reports.length
+    const medium_value = reports.length>0? reports.reduce((acc, report) => acc +report.value,0)/reports.length: 0
     return await reply.status(200).send({reports, medium_value})
   })
 
-  fastify.post('/reports', async function handler (request:FastifyRequest, reply:FastifyReply) {
+  fastify.post('/reports',{
+    schema: {
+      tags: ['Reports'],
+      description: 'Create a new equipment report',
+      body: {
+        type: 'object',
+        required: ['value', 'equipment_id', 'timestamp'],
+        properties: {
+          value: { type: 'number' },
+          equipment_id: { type: 'string' },
+          timestamp: { type: 'string' }
+        }
+      },
+      response: {
+        201: {
+          type: 'object',
+          properties: {
+            id: { type: 'string' }
+          }
+        }
+      }
+    }
+  }, async function handler (request:FastifyRequest, reply:FastifyReply) {
     const equipmentRepository = new EquipmentPrismaRepository()
     const equipmentReportRepository = new EquipmentReportPrismaRepository()
     const usecase = new CreateEquipmentReportUsecase(equipmentReportRepository, equipmentRepository)
     const id = await usecase.execute(request.body as CreateEquipmentReportInput)
     return await reply.status(201).send({id}) 
   })
-  fastify.post('/reports/csv', async function handler (request:FastifyRequest, reply:FastifyReply) {
+
+  fastify.post('/reports/csv',{
+    schema: {
+      tags: ['Reports'],
+      description: 'Upload reports via CSV file',
+      consumes: ['multipart/form-data'],
+      body: {
+        type: 'object',
+        properties: {
+          file: { 
+            type: 'object',
+            properties: {
+              filename: { type: 'string' },
+              mimetype: { type: 'string' }
+            }
+          }
+        }
+      },
+      response: {
+        201: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              id: { type: 'string' }
+            }
+          }
+        }
+      }
+    }
+  }, async function handler (request:FastifyRequest, reply:FastifyReply) {
     const equipmentRepository = new EquipmentPrismaRepository()
     const equipmentReportRepository = new EquipmentReportPrismaRepository()
     const usecase = new CreateEquipmentReportWithCsvUsecase(equipmentReportRepository, equipmentRepository)

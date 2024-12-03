@@ -4,7 +4,29 @@ import { ListEquipmentUseCase } from "../../core/equipment/application/usecases/
 
 export const equipmentRoutes = (fastify: FastifyInstance, options: any, done: () => void) => {
 
-  fastify.get('/equipments', async function handler (request:FastifyRequest, reply:FastifyReply) {
+  fastify.get('/equipments',{
+    schema: {
+      tags: ['Equipments'],
+      description: 'List all equipments',
+      response: {
+        200: {
+          type: 'object',
+          properties: {
+            equipments: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  id: { type: 'string' },
+                  description: { type: 'string' },
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }, async function handler (request:FastifyRequest, reply:FastifyReply) {
     const repository = new EquipmentPrismaRepository()
     const usecase = new ListEquipmentUseCase(repository)
     const equipments = await usecase.execute()

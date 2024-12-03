@@ -10,7 +10,7 @@ Content-Type: application/json
 {
     "value":10.0,
     "equipment_id":"975c7c96-6624-45ce-831e-9c7cf0a50cfb",
-    "timestamp": "2023-02-15T01:30:00.000-05:00"
+    "timestamp": "2024-12-3T01:30:00.000-05:00"
 }
 
 ###

@@ -11,6 +11,12 @@ async function main() {
       id:"975c7c96-6624-45ce-831e-9c7cf0a50cfb",
       description: 'Equipment 1 sensor 1',
     },
+    {
+      description:"eq212"
+    },
+    {
+      description:"eq21234"
+    }
     
   ],
   skipDuplicates: true,

@@ -18,6 +18,13 @@ services:
     ports:
       - "5432:5432"
     restart: unless-stopped
+  frontend:
+    image: carlos0406/front-radix
+    container_name: radix_frontend
+    ports:
+    - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:3000
 
 volumes:
   radix_pg:
