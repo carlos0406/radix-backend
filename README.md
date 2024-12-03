@@ -135,3 +135,4 @@ export interface IRepository<E extends Entity> {
 - User authentication and authorization
 - E2E tests and more integration and unit tests
 - Database Cache
+- Build a production bundle(jscode)
