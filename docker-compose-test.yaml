@@ -1,0 +1,12 @@
+services:
+  postgres:
+    image: postgres:alpine
+    container_name: radix_postgres_test
+    environment:
+      - POSTGRES_USER=radix
+      - POSTGRES_PASSWORD=radix
+      - POSTGRES_DB=radixdb
+    ports:
+      - "5432:5432"
+    tmpfs:
+      - /var/lib/postgresql/data

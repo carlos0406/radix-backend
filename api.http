@@ -1,0 +1,36 @@
+###
+# @name listEquipments
+GET http://localhost:3000/equipments
+
+###
+# @name createReport
+POST http://localhost:3000/reports
+Content-Type: application/json
+
+{
+    "value":10.0,
+    "equipment_id":"975c7c96-6624-45ce-831e-9c7cf0a50cfb",
+    "timestamp": "2023-02-15T01:30:00.000-05:00"
+}
+
+###
+# @name insertReportWithCSV
+POST http://localhost:3000/reports/csv
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary1234
+
+------WebKitFormBoundary1234
+Content-Disposition: form-data; name="csv"; filename="report.csv"
+Content-Type: text/csv
+
+< ./example.csv
+------WebKitFormBoundary1234--
+
+
+
+###
+# @name listReports1
+GET http://localhost:3000/reports?equipment_id=975c7c96-6624-45ce-831e-9c7cf0a50cfb&hours=1000
+
+###
+# @name listReports1
+GET http://localhost:3000/reports?equipment_id=a168e80e-2bf4-4362-a49c-7ff875e1c8eb&hours=1000

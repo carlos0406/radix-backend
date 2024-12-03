@@ -1,0 +1,24 @@
+services:
+  app:
+    build: .
+    container_name: radix_app
+    ports:
+    - "3000:3000"
+    environment:
+    - DATABASE_URL=postgres://radix:radix@postgres:5432/radixdb
+  postgres:
+    image: postgres:alpine
+    container_name: radix_postgres
+    environment:
+      - POSTGRES_USER=radix
+      - POSTGRES_PASSWORD=radix
+      - POSTGRES_DB=radixdb
+    volumes:
+      - radix_pg:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+volumes:
+  radix_pg:
+    driver: local

@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "bundler",  // More modern resolution strategy
+    "module": "ESNext",             // Use ESNext instead of nodenext
+    "target": "ESNext",             
+    "outDir": "./dist",             
+    "esModuleInterop": true,        
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,                 
+    "noEmitOnError": true,          // Changed to true to prevent compilation with errors
+    "noImplicitAny": false,          // Recommend enabling stricter type checking
+    "moduleDetection": "force"      // Explicitly force module detection
+  },
+  "exclude": [
+    "node_modules",
+    "tests",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]
+}
