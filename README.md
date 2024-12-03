@@ -28,10 +28,10 @@ docker-compose up --build
 pnpm install
 ```
 
-2. Configure `.env` file
+2. Database `seed`, you need a postgres running and configure .env file
 ```bash
-# Copy .env.example to .env and fill in your configurations
-cp .env.example .env
+# init somes equipments registers
+pnpm tsx seed.ts
 ```
 
 3. Start the application
@@ -79,7 +79,11 @@ We use VSCode's REST Client for easy API testing. Configuration file: `api.http`
 pnpm run test
 ```
 
+
 ### Run Integration Tests
+```bash
+docker compose -f docker-compose-test.yaml up
+```
 ```bash
 pnpm run test:int
 ```
