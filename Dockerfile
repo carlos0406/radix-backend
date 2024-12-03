@@ -1,4 +1,3 @@
-# Use a imagem oficial do Node.js
 FROM node:20-alpine
 
 RUN npm install -g pnpm
