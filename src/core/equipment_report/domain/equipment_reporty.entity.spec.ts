@@ -16,4 +16,36 @@ describe('ReportEntity', () => {
     expect(r.value).toBe(100)
   })
 
+  test('should throw a error if equipment_id is empty', () => {
+    expect(() => {
+      const _ = new EquipmentReport({
+        //@ts-expect-error null equipment_id
+        equipment_id: null,
+        timestamp: new Date(),
+        value: 100,
+      })
+    }).toThrowError('report: equipment_id:Expected string, received null')
+  })
+
+  test('should throw a error if timestamp is empty', () => {
+    expect(() => {
+      const _ = new EquipmentReport({
+        equipment_id: uuid(),
+        //@ts-expect-error null timestamp
+        timestamp: null,
+        value: 100,
+      })
+    }).toThrowError('report: timestamp:Expected date, received null')
+  })
+  test('should throw a error if value is empty', () => {
+    expect(() => {
+      const _ = new EquipmentReport({
+        equipment_id: uuid(),
+        timestamp: new Date(),
+        //@ts-expect-error null value
+        value: null,
+      })
+    }).toThrowError('report: value:Expected number, received null')
+  })
+
 })

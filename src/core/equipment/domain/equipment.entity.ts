@@ -1,6 +1,7 @@
 import { v4 as uuid } from 'uuid'
 import { Entity } from '../../shared/domain/entity'
 import { ZodReportValidator } from '../validator/equipment.zod-validator'
+import NotificationError from '../../shared/notification/notification-error'
 interface EquipmentProps {
   id?: string
   description: string
@@ -49,6 +50,9 @@ export class Equipment extends Entity {
     this._created_at=created_at?? new Date()
     this._description = description
     this.validate()
+    if (this.notification.hasErrors()) {
+      throw new NotificationError(this.notification.getErros())
+    }
   }
   
   validate () {
