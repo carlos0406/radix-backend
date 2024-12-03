@@ -11,7 +11,7 @@ This project implements a robust equipment management system using Clean Archite
 
 ## Environment Setup
 
-### Option 1: Docker Compose (contains the project frontend `http://localhost:5173/`)
+### Option 1: Docker Compose (contains the project frontend `http://localhost:8080/`)
 ```bash
 # Clone the repository
 git clone <repository-url>
